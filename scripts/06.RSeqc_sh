@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#Make an rseqc directory
+mkdir ~/rseqc
+
+#Infer whether data is strand-specific or not, i.e. forward or reverse stranded, check is only required to be performed on one file per Study
+infer_experiment.py -r /mnt/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12 -i SampleNameAligned.sortedByCoord.out.bam
+
+#bam_stat is a way of summarising the mapping statistics of a BAM file
+for i in *Aligned.sortedByCoord.out.bam; do
+bam_stat.py -i $i > ~/rseqc/${i%Aligned.sortedByCoord.out.bam}.bamstats.txt
+done
+
+#Calculate how mapped reads were distributed over genome feature (like CDS exon, 5’UTR exon, 3’ UTR exon, Intron, Intergenic regions): read_distribution.py
+for i in *Aligned.sortedByCoord.out.bam; do
+read_distribution.py -i $i -r /mnt/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12 > ~/rseqc/${i%Aligned.sortedByCoord.out.bam}.read_dist.txt
+done
+ 
+#geneBodyCoverage calculates the number of RNA-seq reads map across the length of genes in a 5' - 3' direction 
+# It is used to detect 5-3' bias ensuring samples are not degraded or skewed 
+
+#As this tools can take a long time to run especially for larger sequencing depth files, it is reccomended that samples are subsetted to a proportion of reads
+# ~200,000 reads per sample/study should ensure adequate depth  
+# Change -s to give you 200,000 reads (calculated from your read counts above!)
+
+for i in *Aligned.sortedByCoord.out.bam; do
+samtools view -s x  -o ${i%.bam}_subset.bam $i
+done
+
+# index subsampled bam files
+for i in *Aligned.sortedByCoord.out_subset.bam; do
+samtools index $i
+done
+
+for i in *Aligned.sortedByCoord.out_subset.bam; do
+geneBody_coverage.py -i $i -r /mnt/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12 -o ~/rseqc/${i%Aligned.sortedByCoord.out_subset.bam}
+done
+# Run multiqc on the results
+
