@@ -1,0 +1,21 @@
+#!/bin/bash
+#featurecounts requires name-sorted bam files instead of coordinated sorted bams 
+mkdir ~/name_sorted_bams
+# create name-sorted bam file
+# -n sort by name rather than coordinates
+# -@ specify number of threads to use
+# -o name of output file
+for i in *Aligned.sortedByCoord.out.bam; do
+samtools sort -n -@ 12 -o ~/name_sorted_bams/${i%Aligned.sortedByCoord.out.bam}_namesorted.bam $i
+done
+
+cd ~/name_sorted_bams
+#For paired end data -p indicates this , for single end simply run without -p !
+# for reverse-stranded libraries
+featureCounts -T 12 -s 2 -p --countReadPairs -C -a /mnt/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.gtf -o featurecounts.txt *namesorted.bam 2> featurecounts.screen-output.log
+
+
+# for unstranded libraries
+featureCounts -T 12 -p --countReadPairs -C -a /mnt/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.gtf -o featurecounts.txt *namesorted.bam 2> featurecounts.screen-output.log
+
+# Run multiqc on the results
