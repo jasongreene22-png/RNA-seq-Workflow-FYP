@@ -38,6 +38,15 @@ Scripts are organized by analysis step:
    -  `07_featurecounts.sh`
       Example feature count scripts for forward and reverse stranded libraries
 
+## Useful links for executing commands and understanding output 
+FastQC - https://www.bioinformatics.babraham.ac.uk/projects/fastqc/INSTALL.txt
+MultiQC - https://multiqc.info/
+Cutadapt - https://cutadapt.readthedocs.io/en/stable/guide.html
+STAR - https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf
+Samtools - http://www.htslib.org/doc/samtools.html
+RSeQC - http://rseqc.sourceforge.net/
+featurecounts - http://subread.sourceforge.net/featureCounts.html
+
 
 ## How to use this repository
 Users are expected to:
@@ -50,4 +59,5 @@ Users are expected to:
 - No test data is included
 - File paths and software calls are system-specific
 - Scripts are provided for instructional and reference purposes
+
 
