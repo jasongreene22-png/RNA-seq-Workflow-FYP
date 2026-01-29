@@ -1,0 +1,15 @@
+#!/bin/bash
+#You may choose to trim your data if there are fails present in your Fastqc reports such as adapater contamination
+#Cutadapt is ran in this case
+#To trim illumina universial adapter sequences for example
+cutadapt -j=1 -a AGATCGGAAGAG -A AGATCGGAAGAG --output=output_1.fastq.gz --paired-output=output_2.fastq.gz --error-rate=0.1 --times=1 --overlap=3 --action=trim --minimum-length=35 --pair-filter=any --quality-cutoff=20 input_1.fastq.gz input_2.fastq.gz
+#Similarly polyA adapters may be present in FastQC reports 
+# --poly-a  command used in this instance
+# to run in a loop and redirect to log files 
+for i in *_1.fastq.gz; do
+cutadapt -j=1 -a AGATCGGAAGAG -A AGATCGGAAGAG --output=trimmed_$i --paired-output=trimmed_${i%_1.fastq.gz}_2.fastq.gz --error-rate=0.1 --times=1 --overlap=3 --action=trim --minimum-length=35 --pair-filter=any --quality-cutoff=20 $i ${i%_1.fastq.gz}_2.fastq.gz > trimmed_${i%_1.fastq.gz}_cutadapt.log
+done
+#Run Multiqc on results in new trimmed read directory
+# mkdir ~/trimmed_reads e.g. 
+# mv *_cutadapt.log trimmed reads 
+ 
