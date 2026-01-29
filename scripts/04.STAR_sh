@@ -1,0 +1,29 @@
+#!/bin/bash 
+#To align your reads to a reference genome use the STAR command 
+#STAR - https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf
+
+
+#STAR uses a default genome index to assume the length of your reads e.g
+## <CSC/hg38.fa --sjdbGTFfile /media/newdrive/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.gtf --sjdbOverhang 149
+
+## A new genome index can be rebuilt to suit your reads by editing --sjbdOverhang x , where x = no.of reads -1 
+# This is not strictly necessary as STAR will automatically read the length of you reads , however may benefit if problems occur in multiqc reports
+
+
+#To test if a loop is working the echo command can be used as confirmatory tool prior to running your analysis, for example
+for i in *_1.fastq.gz; do
+echo STAR --genomeDir /mnt/data/Reference_genomes/Human/UCSC/STAR/ --runThreadN 12 --readFilesIn $i ${i%_1.fastq.gz}_2.fastq.gz --readFilesCommand zcat --outFileNamePrefix ${i%_1.fastq.gz} --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes Standard
+done
+
+# To align all fastq files within a directory
+for i in *_1.fastq.gz; do
+STAR --genomeDir /mnt/data/Reference_genomes/Human/UCSC/STAR/ --runThreadN 12 --readFilesIn $i ${i%_1.fastq.gz}_2.fastq.gz --readFilesCommand zcat --outFileNamePrefix ${i%_1.fastq.gz} --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes Standard
+done
+
+
+#Move bams to new directory and create a multiqc report
+mkdir ~/ STAR_bams
+multiqc STAR_bams
+
+ 
+
