@@ -1,4 +1,4 @@
-# RNA-seq Differential Expression Workflow
+# RNA-seq and Differential Gene Expression Analysis Basic Workflow
 
 ## Purpose
 This repository contains template scripts outlining a typical RNA-seq
@@ -11,10 +11,10 @@ adapt to their own data, computing environment, and analysis goals.
 ## Workflow overview
 The workflow follows a standard RNA-seq analysis structure:
 
-1. Quality control of raw sequencing reads
-2. Read alignment or quantification
-3. Generation of gene-level count matrices
-4. Differential expression analysis
+1. Quality control of raw sequencing reads (FastQC,MultiQC,Cutadapt)
+2. Read alignment or quantification (STAR,samtools)
+3. Generation of gene-level count matrices (GeneBodyCoverage, featureCounts, readistribution)
+4. Differential expression analysis (DESeq2)
 5. Downstream visualization and interpretation
 
 ## Repository structure
@@ -59,6 +59,7 @@ Users are expected to:
 - No test data is included
 - File paths and software calls are system-specific
 - Scripts are provided for instructional and reference purposes
+
 
 
 
