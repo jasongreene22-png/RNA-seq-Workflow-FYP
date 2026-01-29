@@ -1,4 +1,4 @@
-# RNA-seq Differential Expression Workflow (Template)
+# RNA-seq Differential Expression Workflow
 
 ## Purpose
 This repository contains template scripts outlining a typical RNA-seq
@@ -50,3 +50,4 @@ Users are expected to:
 - No test data is included
 - File paths and software calls are system-specific
 - Scripts are provided for instructional and reference purposes
+
