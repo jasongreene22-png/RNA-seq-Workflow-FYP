@@ -1,0 +1,17 @@
+#!/bin/bash 
+## Samtools are a set of utilities used to manipulate alignemnt information and uses SAM, BAM and CRAM formats. 
+# Its utility is its ability to index, merge and sort alignemnt data and retrieves read info with ease 
+# Samtools tutorial - http://www.htslib.org/doc/samtools.html
+
+
+# view mapping section only of sam file
+samtools view SampleNameAligned.sortedByCoord.out.bam | less -S
+
+# count number of alignments
+samtools view SampleNameAligned.sortedByCoord.out.bam | wc -l
+
+# index bam files
+# -@ specify number of threads to use
+for i in *Aligned.sortedByCoord.out.bam; do
+samtools index $i -@ 12
+done 
