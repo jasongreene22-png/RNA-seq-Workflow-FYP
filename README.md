@@ -15,7 +15,9 @@ The workflow follows a standard RNA-seq analysis structure:
 2. Read alignment or quantification (STAR,samtools)
 3. Generation of gene-level count matrices (GeneBodyCoverage, featureCounts, readistribution)
 4. Differential expression analysis (DESeq2)
-5. Downstream visualization and interpretation
+5. Rank-Rank Hypergeometirc Overlap (RRHO)
+6. Fast Gene Set Enrichment Analysis (fgsea)
+7. Overrepresentation Analysis (ORA)
 
 ## Repository structure
 Scripts are organized by analysis step:
