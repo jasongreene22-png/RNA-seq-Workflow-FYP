@@ -124,3 +124,9 @@ topPathways <- c(topPathwaysUp, rev(topPathwaysDown))
 
 plotGseaTable(reactome_paths[topPathways], stats = rankings2, fgseaRes = fg2_react, gseaParam = 0.5)
 
+## PLOR Number one term
+topTerm1 <- fg1_hall[order(padj)][1]$pathway
+
+
+plotEnrichment(hallmark_paths[[topTerm1]], stats = rankings1) +
+  labs(title = paste("Study1:", topTerm1))
