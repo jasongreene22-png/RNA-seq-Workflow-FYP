@@ -1,4 +1,21 @@
 ## Run Overrepresentation analysis on DEG list
+###Cluster Profiling
+
+library(clusterProfiler)
+
+if (!require("org.Hs.eg.db")) {
+  BiocManager::install("org.Hs.eg.db")
+}
+library(org.Hs.eg.db)
+if (!require("ReactomePA")) {
+  BiocManager::install("ReactomePA")
+}
+library(ReactomePA)
+library(enrichplot)
+library(DOSE)
+library(org.Hs.eg.db) 
+library(dplyr)
+library(ggplot2)
 
 
 
