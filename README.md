@@ -48,6 +48,7 @@ Scripts are organized by analysis step:
 - Samtools - http://www.htslib.org/doc/samtools.html
 - RSeQC - http://rseqc.sourceforge.net/
 - featurecounts - http://subread.sourceforge.net/featureCounts.html
+- fgsea - https://biostatsquid.com/fgsea-tutorial-gsea/
 
 
 ## How to use this repository
